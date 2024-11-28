@@ -4,12 +4,10 @@ const path = require('path');
 const bodyParser = require('body-parser');  // Import body-parser
 
 const PORT = 3000;
-
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 app.use(bodyParser.urlencoded({ extended: false }));  // Use body-parser to parse form data
-
-const mcqs = [
+app.use(express.static(__dirname + '/public'));const mcqs = [
     { question: 'ما هي الوسيلة الأساسية لراحة القلب وطمأنينته؟', options: ['المال', 'الإيمان بالله', 'الصحة الجسدية', 'الراحة النفسية'], answer: 'الإيمان بالله'},
     { question: 'ما هو المطلب الأسمى لكل إنسان وفقًا للمؤلف؟', options: ['الثروة', 'السعادة', 'الشهرة', 'الراحة الجسدية'], answer: 'السعادة'},
     { question: 'ما الذي يؤدي إلى الحياة الطيبة والسرور؟', options: ['العيش بدون مشاكل', 'التقوى والعمل الصالح', 'المال الوفير', 'السفر'], answer: 'التقوى والعمل الصالح'},
@@ -49,6 +47,10 @@ const randomMCQs = getRandomMCQs();
 app.get('/', (req, res) => {
     
     res.render('index', { mcqs: randomMCQs });
+});
+
+app.get('/quiz', (req, res) => {
+    res.render('quiz', { mcqs: randomMCQs });
 });
 
 app.post('/submit', (req, res) => {
