@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html dir='rtl'
+lang='ar'>
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random MCQs</title>
+    <style>
+        footer {
+            width: 100%;
+            padding-top:  2%;
+            padding-bottom: 1%;
+            background-color: #31443a;
+        }
+        .detels{
+            margin-top: 2%;
+        }
+        header {
+            background-color: #578075;
+            width: 100%;
+        }
+        .img{
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            min-height: auto;
+        }
+        body{
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+        body , .Q {
+            font-family: Arial, sans-serif;
+            background-color: #659287;
+            color: #a3cfb8;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            min-height: auto;
+            width: 100%;
+        }
+        .Q{
+            padding: 2%;
+        }
+        h1 , h2 , h3 {
+            color: #a3cfb8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            min-height: auto;
+            width: 100%;
+            margin: 0%;
+            padding: 0%;
+            font-size: medium;
+        }
+        form {
+            background: #fff;
+            padding: 20px;
+            text-align: right;
+            font-size: large;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            max-width: 600px;
+            width: 100%;
+        }
+        div {
+            margin-bottom: 15px;
+        }
+        p {
+            font-weight: bold;
+        }
+        label {
+            margin-right: 10px;
+        }
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background: #0e6a39;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background: #555;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="img">
+            <img src="https://arrowad.sch.sa/wp-content/uploads/2021/05/arrwad-education.png" alt="">
+        </div>
+        <div class="title">
+            <h1>
+                اختبار قصير للتقييم الذاتي عن كتاب  
+            </h1>
+            <h2>
+                الوسائل المفيده للحياة السعيدة
+            </h2>
+        </div>
+    </header>
+    <div class="Q">
+        <form action="/submit" method="POST">
+            <% mcqs.forEach((mcq, index) => { %>
+                <div>
+                    <p><%= mcq.question %></p>
+                    <% mcq.options.forEach(option => { %>
+                        <label>
+                            <input type="radio" name="question<%= index %>" value="<%= option %>" required>
+                            <%= option %>
+                        </label><br>
+                    <% }) %>
+                </div>
+            <% }) %>
+            <button type="submit"> ارسال</button>
+        </form>
+    </div>
+</body>
+<div class="detels">
+    <h3>
+        تأليف الشيخ عبدالرحمن السعدي 
+    </h3>
+    <h3>
+        اعتنى بطباعته و قدم له :
+        عبدالله بن ابراهيم الخلف
+    </h3>
+</div>
+<footer>
+    <h1>جميع الحقوق محفوظة لمجموعة الرواد للتعليم  لسنة  ©️2024</h1>
+    <h1>تصميم و أنشاء الطالب : صالح فهد الصقر</h1>
+</footer>
+</html>

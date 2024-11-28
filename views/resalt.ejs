@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html dir='rtl'
+lang='ar'>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+</head>
+<style>
+        body{
+        background-color: #578075;
+        font-family: Arial, sans-serif;
+        min-height: 90vh;
+        color: #a3cfb8;
+    }
+    .resalt{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        font-size: large;
+        background-color: #659287;
+        border-radius: 8px;
+        text-align: center;
+        padding: 10%;
+        margin-top:20% ;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        max-width: 100%;
+    }
+    header {
+        background-color: #578075;
+        width: 100%;
+    }
+    .img{
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: auto;
+        padding-bottom: 2%;
+        max-width: 80%;
+    }
+    img{
+        max-width: 100%;
+    }
+    a{
+        background-color: #04AA6D; /* Green */
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        border-radius: 16px;
+    }
+    a:hover {
+        background: #555;
+    }
+</style>
+<body>
+    <div class="img">
+        <img src="https://arrowad.sch.sa/wp-content/uploads/2021/05/arrwad-education.png" alt="">
+    </div>
+    <div class="resalt">
+        <h1>
+        لقد اجبت على <%=score %> من <%=length %>
+        </h1>
+        <h2>
+            <%=per%>%
+        </h2>
+        <a href="/"> المحاولة مرة اخرى</a>
+    </div>
+</body>
+</html>
