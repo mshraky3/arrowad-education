@@ -1,25 +1,24 @@
 <!DOCTYPE html>
-<html dir='rtl' lang='ar'>
+<html dir="rtl" lang="ar">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>quiz</title>
+    <title>Quiz</title>
     <style>
-
         footer {
             width: 100%;
-            padding-top:  2%;
+            padding-top: 2%;
             padding-bottom: 1%;
             background-color: #31443a;
         }
-        .detels{
+        .detels {
             margin-top: 2%;
         }
         .header-img {
             padding: 1%;
             height: auto;
         }
-        .img{
+        .img {
             display: flex;
             justify-content: center;
             align-items: center;
@@ -36,10 +35,6 @@
         }
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-        }
-        body, .Q {
-            font-family: Arial, sans-serif;
             background-color: #659287;
             color: #a3cfb8;
             margin: 0;
@@ -48,7 +43,6 @@
             justify-content: center;
             align-items: center;
             flex-direction: column;
-           
         }
         header {
             width: 100%;
@@ -60,7 +54,6 @@
         }
         .Q {
             padding: 2%;
-            
             width: 80%;
         }
         h1, h2, h3 {
@@ -85,8 +78,11 @@
             max-width: 800px;
             width: 80%;
         }
-        div {
-            margin-bottom: 15px;
+        .question {
+            display: none;
+        }
+        .question.active {
+            display: block;
         }
         p {
             font-weight: bold;
@@ -108,21 +104,26 @@
         button:hover {
             background: #555;
         }
-
         .logo {
             width: 15%;
         }
-        .title{
+        .title {
             font-size: xx-large;
         }
+        .timer {
+            font-size: 20px;
+            font-weight: bold;
+            color: #f00;
+            text-align: center;
+            margin-bottom: 10px;
+        }
     </style>
-    
 </head>
 <body>
     <div class="Q">
-        <form action="/submit" method="POST">
+        <form id="quizForm" action="/submit" method="POST">
             <% mcqs.forEach((mcq, index) => { %>
-                <div>
+                <div class="question" id="question<%= index %>">
                     <p><%= mcq.question %></p>
                     <% mcq.options.forEach(option => { %>
                         <label>
@@ -130,9 +131,12 @@
                             <%= option %>
                         </label><br>
                     <% }) %>
+                    <div class="timer" id="timer<%= index %>">الوقت المتبقي: 60 ثانية</div>
+                    <button type="button" onclick="showNextQuestion(<%= index %>, <%= mcqs.length %>)">
+                        <%= index === mcqs.length - 1 ? "إرسال" : "التالي" %>
+                    </button>
                 </div>
             <% }) %>
-            <button type="submit"> ارسال</button>
         </form>
     </div>
     <div class="detels">
@@ -144,11 +148,56 @@
             عبدالله بن ابراهيم الخلف
         </h3>
     </div>
-    
     <footer>
         <h1>جميع الحقوق محفوظة لمجموعة الرواد للتعليم  لسنة  ©️2024</h1>
         <h1>تصميم و أنشاء الطالب : صالح فهد الصقر</h1>
     </footer>
 
+    <script>
+        let currentTimer;
+        let timeLeft = 60;
+
+        // Function to show the next question
+        function showNextQuestion(currentIndex, totalQuestions) {
+            // Clear the timer for the current question
+            clearInterval(currentTimer);
+
+            const currentQuestion = document.getElementById(`question${currentIndex}`);
+            const nextQuestion = document.getElementById(`question${currentIndex + 1}`);
+            
+            // Hide the current question
+            currentQuestion.classList.remove('active');
+            if (nextQuestion) {
+                // Show the next question and restart the timer
+                nextQuestion.classList.add('active');
+                startTimer(currentIndex + 1, totalQuestions);
+            } else {
+                // If it's the last question, submit the form
+                document.getElementById("quizForm").submit();
+            }
+        }
+
+        // Function to start the timer for each question
+        function startTimer(questionIndex, totalQuestions) {
+            timeLeft = 60; // Reset time
+            const timerElement = document.getElementById(`timer${questionIndex}`);
+            timerElement.innerText = `الوقت المتبقي: ${timeLeft} ثانية`;
+
+            currentTimer = setInterval(() => {
+                timeLeft--;
+                timerElement.innerText = `الوقت المتبقي: ${timeLeft} ثانية`;
+
+                if (timeLeft <= 0) {
+                    // If time runs out, move to the next question automatically
+                    clearInterval(currentTimer);
+                    showNextQuestion(questionIndex, totalQuestions);
+                }
+            }, 1000);
+        }
+
+        // Initialize the first question and timer
+        document.getElementById("question0").classList.add("active");
+        startTimer(0, <%= mcqs.length %>);
+    </script>
 </body>
 </html>
